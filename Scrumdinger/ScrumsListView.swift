@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct ScrumsListView: View {
-  let scrums: [DailyScrum]
+  @Binding var scrums: [DailyScrum]
   
   var body: some View {
     List {
       ForEach(scrums) { scrum in
-        NavigationLink(destination: ScrumDetailView(scrum: scrum)) {
+        NavigationLink(destination: ScrumDetailView(scrum: binding(for: scrum))) {
           CardView(scrum: scrum)
         }
         .listRowBackground(scrum.color)
@@ -24,12 +24,19 @@ struct ScrumsListView: View {
       Image(systemName: "plus")
     })
   }
+  
+  private func binding(for scrum: DailyScrum) -> Binding<DailyScrum> {
+    guard let scrumIndex = scrums.firstIndex(where: { $0.id == scrum.id }) else {
+      fatalError("Can't find scrum in array")
+    }
+    return $scrums[scrumIndex]
+  }
 }
 
 struct ScrumListView_Previews: PreviewProvider {
   static var previews: some View {
     NavigationView {
-      ScrumsListView(scrums: DailyScrum.data)
+      ScrumsListView(scrums: .constant(DailyScrum.data))
     }
     .environment(\.colorScheme, .dark)
   }

@@ -25,7 +25,7 @@
 		289426E12672542700C3017B /* ScrumdingerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrumdingerApp.swift; sourceTree = "<group>"; };
 		289426E32672542700C3017B /* MeetingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingView.swift; sourceTree = "<group>"; };
 		289426E82672542900C3017B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		289426EF267264EE00C3017B /* DailyScrum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyScrum.swift; sourceTree = SOURCE_ROOT; };
+		289426EF267264EE00C3017B /* DailyScrum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DailyScrum.swift; path = Scrumdinger/Models/DailyScrum.swift; sourceTree = SOURCE_ROOT; };
 		289426F1267267F500C3017B /* Color+Codable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Codable.swift"; sourceTree = "<group>"; };
 		289426F326726C1D00C3017B /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		289426F52672746F00C3017B /* ScrumsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrumsListView.swift; sourceTree = "<group>"; };
@@ -44,6 +44,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2881EDA52682281A00A83D5E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				289426EF267264EE00C3017B /* DailyScrum.swift */,
+				289426F1267267F500C3017B /* Color+Codable.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		289426D52672542700C3017B = {
 			isa = PBXGroup;
 			children = (
@@ -63,12 +72,11 @@
 		289426E02672542700C3017B /* Scrumdinger */ = {
 			isa = PBXGroup;
 			children = (
-				289426EF267264EE00C3017B /* DailyScrum.swift */,
+				2881EDA52682281A00A83D5E /* Models */,
 				289426F326726C1D00C3017B /* CardView.swift */,
 				289426F52672746F00C3017B /* ScrumsListView.swift */,
 				2881EDA22682029F00A83D5E /* EditView.swift */,
 				289426F9267398D600C3017B /* ScrumDetailView.swift */,
-				289426F1267267F500C3017B /* Color+Codable.swift */,
 				289426E12672542700C3017B /* ScrumdingerApp.swift */,
 				289426E32672542700C3017B /* MeetingView.swift */,
 				289426F72672847500C3017B /* Assets.xcassets */,
