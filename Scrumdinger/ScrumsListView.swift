@@ -9,20 +9,23 @@ import SwiftUI
 
 struct ScrumsListView: View {
   @Binding var scrums: [DailyScrum]
+  @State var isPresented: Bool = false
   
   var body: some View {
     List {
-      ForEach(scrums) { scrum in
-        NavigationLink(destination: ScrumDetailView(scrum: binding(for: scrum))) {
+      /// Be aware it's only available on Xcode 13(beta at his time of June 30th) and later
+      /// For older versions of Xcode, should consider using the "binding(for:)" helper after iterating over scrums array itself not the binding array
+      ForEach($scrums) { $scrum in
+        NavigationLink(destination: ScrumDetailView(scrum: $scrum)) {
           CardView(scrum: scrum)
         }
         .listRowBackground(scrum.color)
       }
     }
-    .navigationTitle("Daily Scrums")
-    .navigationBarItems(trailing: Button(action: { }) {
-      Image(systemName: "plus")
-    })
+    .configureNavigationBar()
+    .sheet(isPresented: $isPresented) {
+      
+    }
   }
   
   private func binding(for scrum: DailyScrum) -> Binding<DailyScrum> {
@@ -30,6 +33,15 @@ struct ScrumsListView: View {
       fatalError("Can't find scrum in array")
     }
     return $scrums[scrumIndex]
+  }
+}
+
+private extension List {
+  func configureNavigationBar() -> some View {
+    self.navigationTitle("Daily Scrums")
+      .navigationBarItems(trailing: Button(action: { }) {
+        Image(systemName: "plus")
+      })
   }
 }
 
