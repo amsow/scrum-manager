@@ -9,11 +9,15 @@ import SwiftUI
 
 struct ScrumsListView: View {
   @Binding var scrums: [DailyScrum]
+  @State private var newScrumData = DailyScrum.Data()
   @State var isPresented: Bool = false
+  
+ // @available(iOS 15.0, *)
+ // @Environment(\.dismiss) private var dismiss
   
   var body: some View {
     List {
-      /// Be aware it's only available on Xcode 13(beta at his time of June 30th) and later
+      /// Be aware it's only available on Xcode 13(beta at this time of June 30th) version and later
       /// For older versions of Xcode, should consider using the "binding(for:)" helper after iterating over scrums array itself not the binding array
       ForEach($scrums) { $scrum in
         NavigationLink(destination: ScrumDetailView(scrum: $scrum)) {
@@ -22,9 +26,20 @@ struct ScrumsListView: View {
         .listRowBackground(scrum.color)
       }
     }
-    .configureNavigationBar()
+    .navigationTitle("Daily Scrums")
+      .navigationBarItems(trailing: Button(action: { isPresented = true }) {
+        Image(systemName: "plus") })
+    
     .sheet(isPresented: $isPresented) {
-      
+      NavigationView {
+        EditView(scrumData: $newScrumData)
+          .navigationBarItems(leading: Button("Dismiss") { isPresented = false },
+                              trailing: Button("Add") {
+            let newScrum = DailyScrum(title: newScrumData.title, attendees: newScrumData.attendees, lengthInMinutes: Int(newScrumData.lengthInMinutes), color: newScrumData.color)
+            scrums.append(newScrum)
+            isPresented = false
+          })
+      }
     }
   }
   
@@ -39,7 +54,7 @@ struct ScrumsListView: View {
 private extension List {
   func configureNavigationBar() -> some View {
     self.navigationTitle("Daily Scrums")
-      .navigationBarItems(trailing: Button(action: { }) {
+      .navigationBarItems(trailing: Button(action: {}) {
         Image(systemName: "plus")
       })
   }
@@ -48,15 +63,11 @@ private extension List {
 struct ScrumListView_Previews: PreviewProvider {
   static var previews: some View {
     NavigationView {
-      ScrumsListView(scrums: .constant(DailyScrum.data))
+        ScrumsListView(scrums: .constant(DailyScrum.data))
     }
     .environment(\.colorScheme, .dark)
   }
 }
-
-
-
-
 
 
 struct ContentView: View {
